@@ -7,11 +7,18 @@ import java.util.ArrayList;
 
 
 public class iCalender {
-	private String version = "VERSION:1.0\r\n";
-	private String calBegin = "BEGIN:VCALENDAR\r\n";
-	private String calEnd = "END:VCALENDAR\r\n";
-	private String eventBegin = "BEGIN:VEVENT\r\n";
-	private String eventEnd = "END:VEVENT\r\n";
+	private String version = "VERSION:1.0\n";
+	private String prodid = "PRODID:Team Quinze\n";
+	private String uid = "UID:blake7@hawaii.edu\n";
+	private String startTime = "DTSTART:20160225T16300\n";
+	private String endTime = "DTEND:20160225T16450\n";
+	private String location = "LOCATION:ICSpace 318B\n";
+	private String summary = "SUMMARY:ICS314 TA Meeting\n";
+	private String description = "DESCRIPTION:Deliverable #1 presentation to Amy\n";
+	private String calBegin = "BEGIN:VCALENDAR\n";
+	private String calEnd = "END:VCALENDAR\n";
+	private String eventBegin = "BEGIN:VEVENT\n";
+	private String eventEnd = "END:VEVENT\n";
 	
 	public void iCalender(){
 		//Create an empty constructor.
@@ -23,9 +30,7 @@ public class iCalender {
         StringBuilder builder = new StringBuilder();
         builder.append(name);
         builder.append(".ics");
-        
-        String newFile = "UID:blake7@hawaii.edu\nDTSTART:20160225T04300\nDTEND:20160225T04450\nSUMMARY:TA MEETING\n";
-        
+                
         try {
 
             File file = new File(builder.toString());
@@ -39,15 +44,21 @@ public class iCalender {
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(calBegin);
             bw.write(version);
-            //bw.write(prodid);
+            bw.write(prodid);
             bw.write(eventBegin);
-            bw.write(newFile);
+            bw.write(uid);
+            bw.write(startTime);
+            bw.write(endTime);
+            bw.write(summary);
+            bw.write(description);
+            bw.write(location);
+            
             bw.write(eventEnd);
             bw.write(calEnd);
             
             bw.close();
 
-            System.out.println("Done");
+            System.out.println("The .ics file has been created.");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,6 +70,6 @@ public class iCalender {
 		iCalender newCal = new iCalender();
 		
 		//Write a new .ics file with a name
-		newCal.write("314-TA-Meeting");
+		newCal.write("New-Event");
 	}
 }
