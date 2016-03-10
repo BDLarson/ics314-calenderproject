@@ -1,13 +1,12 @@
+package ics314;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class iCalender {
+public class iCalender implements calEssentials {
 	private String version = "VERSION:1.0\n";
 	private String prodid = "PRODID:Team Quinze\n";
 	private String uid = "UID:blake7@hawaii.edu\n";
@@ -16,6 +15,7 @@ public class iCalender {
 	private String location;
 	private String summary;
 	private String description;
+	private Float geoValue;
 	private String calBegin = "BEGIN:VCALENDAR\n";
 	private String calEnd = "END:VCALENDAR\n";
 	private String eventBegin = "BEGIN:VEVENT\n";
@@ -25,7 +25,7 @@ public class iCalender {
 		//Create an empty constructor.
 	}
 	
-	public static void nameFile() {
+	public void nameFile() {
 		//Create an instance of iCalender
 		iCalender newCal = new iCalender();
 		
@@ -76,7 +76,6 @@ public class iCalender {
             
             System.out.println("The .ics file has been created.");
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -115,9 +114,5 @@ public class iCalender {
         	throw new IOException("Must be 24 hr!");
         }
         endTime = "DTEND:" + date + "T" + time + "0" + "\n";
-	}
-	
-	public static void main(String[] args) {
-		nameFile();
 	}
 }
