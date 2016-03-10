@@ -15,7 +15,7 @@ public class iCalender implements calEssentials {
 	private String location;
 	private String summary;
 	private String description;
-	private Float geoValue;
+	private String geoValue;
 	private String calBegin = "BEGIN:VCALENDAR\n";
 	private String calEnd = "END:VCALENDAR\n";
 	private String eventBegin = "BEGIN:VEVENT\n";
@@ -32,6 +32,7 @@ public class iCalender implements calEssentials {
 		//Make a name for the .ics file
 		Scanner reader = new Scanner(System.in);
 		System.out.println("What do you want your file to be called?");
+    	System.out.print(">>>");
 		String eName = reader.next();
 		
 		//Write a new .ics file with an event name
@@ -84,35 +85,53 @@ public class iCalender implements calEssentials {
 	public void createFile() throws IOException {        
         Scanner reader = new Scanner(System.in);
         String date;
-        String time;
+        String time1;
+        String time2;
         
         System.out.println("What is the event?");
+    	System.out.print(">>>");
         summary = "SUMMARY:" + reader.nextLine() + "\n";
         
-        System.out.println("What is the description of the event?");
-        description = "DESCRIPTION:" + reader.nextLine() + "\n";
-        
+        System.out.println("Do you want to add a description? (Y/N)");
+    	System.out.print(">>>");
+        if (reader.nextLine().trim().equalsIgnoreCase("y")) {
+        	System.out.println("What is the description of the event?");
+        	System.out.print(">>>");
+            description = "DESCRIPTION:" + reader.nextLine() + "\n";
+        } else {
+        	description = "none\n";
+        }
+
         System.out.println("What is the location of the event?");
+    	System.out.print(">>>");
         location = "LOCATION:" + reader.nextLine() + "\n";
         
         System.out.println("What is the date of the event? (YYYYMMDD)");
+    	System.out.print(">>>");
         date = reader.nextLine();
         if (date.length() < 8) {
         	throw new IOException("Must be YYYYMMDD!");
         }
         
         System.out.println("What time does the event start? (24hr)");
-        time = reader.nextLine();
-        if (time.length() < 4) {
+    	System.out.print(">>>");
+        time1 = reader.nextLine();
+        if (time1.length() < 4) {
         	throw new IOException("Must be 24hr!");
         }
-        startTime = "DTSTART:" + date + "T" + time + "0"+ "\n";
+        int sTime = Integer.parseInt(time1);
+        startTime = "DTSTART:" + date + "T" + sTime + "0"+ "\n";
 
         System.out.println("What time does the event end? (24 hr)");
-        time = reader.nextLine();
-        if (time.length() < 4) {
+    	System.out.print(">>>");
+        time2 = reader.nextLine();
+        if (time2.length() < 4) {
         	throw new IOException("Must be 24 hr!");
         }
-        endTime = "DTEND:" + date + "T" + time + "0" + "\n";
+        int eTime = Integer.parseInt(time2);
+        if(eTime < sTime) {
+        	throw new IOException("End time cannot be earlier than start time!");
+        }
+        endTime = "DTEND:" + date + "T" + eTime + "0" + "\n";
 	}
 }
