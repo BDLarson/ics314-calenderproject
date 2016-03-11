@@ -109,8 +109,29 @@ public class iCalender extends calEssentials implements calMethods {
 		return choice;
 	}
 	
+	public String getGeo() throws Exception {
+		Geographic newGeo = new Geographic();
+		String subGeo;
+		System.out.println("Do you have an address of the event? (Y/N)");
+		System.out.print(">>>");
+		if (reader.nextLine().equalsIgnoreCase("Y")) {
+			System.out.println("What is the address?");
+			System.out.print(">>>");
+	        String subLocation = reader.nextLine();
+			subGeo = newGeo.getLatLongPositions(subLocation);
+			subGeo = subGeo.trim();
+	        location = "LOCATION:" + subLocation + "\n";
+			geo = "GEO:" + subGeo +"\n";
+			return subGeo;
+		}
+		else {
+			location = null;
+			geo = null;	
+			return (geo + location);
+		}
+	}
 	
-	public void nameFile() {
+	public void nameFile() throws Exception {
 		//Create an instance of iCalender
 		iCalender newCal = new iCalender();
 		
@@ -123,7 +144,7 @@ public class iCalender extends calEssentials implements calMethods {
 		newCal.writeFile(eName);
 	}
 
-	public void writeFile(String name){
+	public void writeFile(String name) throws Exception{
 
 		//Take the input name and build a file from it with append .ics
         StringBuilder builder = new StringBuilder();
@@ -155,6 +176,10 @@ public class iCalender extends calEssentials implements calMethods {
             bw.write(location);
             bw.write(classification);
             
+            if (geo != null) {
+            bw.write(geo);
+            }
+            
             bw.write(eventEnd);
             bw.write(calEnd);
             
@@ -167,8 +192,7 @@ public class iCalender extends calEssentials implements calMethods {
         }
 	}
 	
-	public void createFile() throws IOException {        
-        //Scanner reader = new Scanner(System.in);
+	public void createFile() throws Exception {        
      
         //////////////////////USER INPUT: EVENT NAME///////////////////////
         getSummary();
@@ -177,7 +201,7 @@ public class iCalender extends calEssentials implements calMethods {
         getDescription();
         
         //////////////////////USER INPUT: LOCATION///////////////////////
-        getLocation();
+        //getLocation();
         
         //////////////////////USER INPUT: DATE///////////////////////
         getDate();
@@ -187,6 +211,10 @@ public class iCalender extends calEssentials implements calMethods {
 
         //////////////////////USER INPUT: CLASSIFICATION///////////////////////
         getClassification();
+        
+        //////////////////////USER Input: GEO//////////////////////////////////
+        getGeo();
+        
 	}
 
 }
