@@ -226,7 +226,7 @@ public class iCalender extends calEssentials implements calMethods {
         getDescription();
        
         //////////////////////USER INPUT: LOCATION///////////////////////
-        getLocation();
+        //getLocation();
         
         //////////////////////USER INPUT: DATE///////////////////////
         getDate();

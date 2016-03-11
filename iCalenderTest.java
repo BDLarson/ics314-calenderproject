@@ -91,7 +91,29 @@ public class iCalenderTest {
 	}
 	
 	@Test
-	public void testGeo() {
+	public void testGeo() throws Exception {
+		assertEquals("GEO:21.3072003;-157.8123004\n", cal.getGeo()); //University of Hawaii Manoa
+		assertEquals("GEO:33.6518297;-117.8389422\n", cal.getGeo()); //Stanford University
 		
+		System.out.println("");
+		System.err.println("NOW SAY NO BUT ENTER COORDINATES");
+		System.out.println("");
+		
+		assertEquals("GEO:21.3072003;-157.8123004\n", cal.getGeo()); //University of Hawaii Manoa
+		assertEquals("GEO:33.6518297;-117.8389422\n", cal.getGeo()); //Stanford University
+		
+		System.out.println("");
+		System.err.println("NOW SAY NO TWICE BUT ENTER A LOCATAION NAME");
+		System.out.println("");
+		
+		assertEquals("LOCATION:University of Hawaii Manoa\n", cal.getGeo()); //University of Hawaii Manoa
+		assertEquals("LOCATION:Stanford University\n", cal.getGeo()); //Stanford University
+		
+		System.out.println("");
+		System.err.println("NOW SAY NO ALL THE TIME");
+		System.out.println("");
+		
+		assertEquals("null, null", cal.getGeo()); //University of Hawaii Manoa
+		assertEquals("null, null", cal.getGeo()); //Stanford University
 	}
 }
