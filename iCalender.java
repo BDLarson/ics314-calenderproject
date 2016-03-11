@@ -126,13 +126,30 @@ public class iCalender extends calEssentials implements calMethods {
 			subGeo = subGeo.trim();
 	        location = "LOCATION:" + subLocation + "\n";
 			geo = "GEO:" + subGeo +"\n";
-			return subGeo;
-		}
-		else {
-			//TODO add getLocation if answer is NO
-			location = null;
-			geo = null;	
-			return (geo + location);
+			return geo;
+		} else {
+			System.out.println("Do you have the coordinates of the event? (Y/N)");
+			System.out.print(">>>");
+			if (reader.nextLine().equalsIgnoreCase("Y")) {
+				System.out.println("What are the coordinates?");
+				System.out.print(">>>");
+				location = null;
+				geo = "GEO:" + reader.nextLine().trim() + "\n";
+				return geo;
+			} else {
+				System.out.println("Do you know the location name? (Y/N)");
+				System.out.print(">>>");
+				if (reader.nextLine().equalsIgnoreCase("Y")) {
+					System.out.println("What is the name?");
+					System.out.print(">>>");
+					location = "LOCATION:" + reader.nextLine().trim() + "\n";
+					return location;
+				} else {
+					location = null;
+					geo = null;	
+					return (geo + ", " + location);
+				}
+			}
 		}
 	}
 	
@@ -174,15 +191,18 @@ public class iCalender extends calEssentials implements calMethods {
             bw.write(prodid);
             bw.write(eventBegin);
             bw.write(uid);
-           // bw.write(startTime);
-           // bw.write(endTime);
-            //bw.write(summary);
-           // bw.write(description);
-           // bw.write(location);
-           bw.write(classification);
+            bw.write(startTime);
+            bw.write(endTime);
+            bw.write(summary);
+            bw.write(description);
+            bw.write(classification);
+            
+            if (location != null) {
+            bw.write(location);
+        	}
             
             if (geo != null) {
-            bw.write(geo);
+            	bw.write(geo);
             }
             
             bw.write(eventEnd);
@@ -200,25 +220,25 @@ public class iCalender extends calEssentials implements calMethods {
 	public void createFile() throws Exception {        
      
         //////////////////////USER INPUT: EVENT NAME///////////////////////
-        //getSummary();
+        getSummary();
         
         //////////////////////USER INPUT: DESCRIPTION///////////////////////
-       // getDescription();
-        
+        getDescription();
+       
         //////////////////////USER INPUT: LOCATION///////////////////////
-        //getLocation();
+        getLocation();
         
         //////////////////////USER INPUT: DATE///////////////////////
-        //getDate();
+        getDate();
 
         //////////////////////USER INPUT: START/END TIME///////////////////////
-		//getTime();
+		getTime();
 
         //////////////////////USER INPUT: CLASSIFICATION///////////////////////
         getClassification();
         
         //////////////////////USER Input: GEO//////////////////////////////////
-        //getGeo();
+        getGeo();
         
 	}
 

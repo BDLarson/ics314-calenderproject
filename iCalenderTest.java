@@ -50,11 +50,6 @@ public class iCalenderTest {
 	}
 	
 	@Test
-	public void testlocation() {
-		//TODO
-	}
-	
-	@Test
 	public void testDate() throws IOException {
 		assertEquals("20160311", cal.getDate());
 		
@@ -93,5 +88,10 @@ public class iCalenderTest {
 		System.out.println("");
 		
 		assertEquals("CLASS:PUBLIC\n", cal.getClassification());
+	}
+	
+	@Test
+	public void testGeo() {
+		
 	}
 }
