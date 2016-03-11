@@ -8,30 +8,34 @@ import java.util.Scanner;
 
 public class iCalender extends calEssentials implements calMethods {
     Scanner reader = new Scanner(System.in);
-    String date;
+    private String date;
 
-	public void iCalender() {
+	public iCalender() {
 		//Create an empty constructor.
 	}
 	
 	public String getSummary() {
-        System.out.println("What is the event?");
+        System.out.println("Do you want to add an event name? (Y/N)");
     	System.out.print(">>>");
-    	String subSum = reader.nextLine();
-        summary = "SUMMARY:" + subSum + "\n";
-		return subSum;
+    	if (reader.nextLine().equalsIgnoreCase("Y")) {
+    		System.out.println("What is the event?");
+    		System.out.print(">>>");
+    		summary = "SUMMARY:" + reader.nextLine().trim() + "\n";
+    		return summary;
+    	} else {
+    		summary = "SUMMARY:none\n";
+    		return summary;
+    	}
 	}
 	
 	public String getDescription() {
 		System.out.println("Do you want to add a description? (Y/N)");
     	System.out.print(">>>");
-        String subDesc;
 		if (reader.nextLine().trim().equalsIgnoreCase("Y")) {
         	System.out.println("What is the description of the event?");
         	System.out.print(">>>");
-        	subDesc = reader.nextLine();
-            description = "DESCRIPTION:" + subDesc + "\n";
-            return subDesc;
+            description = "DESCRIPTION:" + reader.nextLine().trim() + "\n";
+            return description;
         } else {
         	description = "DESCRIPTION:none\n";
     		return "none";
@@ -52,7 +56,12 @@ public class iCalender extends calEssentials implements calMethods {
     	System.out.print(">>>");
         date = reader.nextLine();
         if (date.length() < 8) {
-        	throw new IOException("Must be YYYYMMDD!");
+        	System.out.println("Too much! Must 8 digits and YYYYMMDD!");
+        	getDate();
+        }
+        if (date.length() > 8) {
+        	System.out.println("Too little! Must be 8 digits and YYYYMMDD!");
+        	getDate();
         }
 		return date;
 	}
@@ -60,7 +69,6 @@ public class iCalender extends calEssentials implements calMethods {
 	public String getTime() throws IOException {
 		String time1;
 		String time2;
-		 //////////////////////USER INPUT: START-TIME///////////////////////
         System.out.println("What time does the event start? (24hr)");
     	System.out.print(">>>");
         time1 = reader.nextLine();
@@ -70,7 +78,6 @@ public class iCalender extends calEssentials implements calMethods {
         int sTime = Integer.parseInt(time1);
         startTime = "DTSTART:" + date + "T" + sTime + "0"+ "\n";
 
-        //////////////////////USER INPUT: END-TIME///////////////////////
         System.out.println("What time does the event end? (24 hr)");
     	System.out.print(">>>");
         time2 = reader.nextLine();
@@ -92,21 +99,18 @@ public class iCalender extends calEssentials implements calMethods {
         if (reader.nextLine().trim().equalsIgnoreCase("Y")) {
         	System.out.println("Private, Public, or Confidential?");
         	System.out.print(">>>");
-        	choice = reader.nextLine();
+        	choice = reader.nextLine().trim();
         	if (choice.equalsIgnoreCase("Private")) {
         		classification = "CLASS:PRIVATE\n";
-        	}
-        	else if (choice.equalsIgnoreCase("Confidential")) {
+        	} else if (choice.equalsIgnoreCase("Confidential")) {
         		classification = "CLASS:CONFIDENTIAL\n";
-        	}
-        	else {
+        	} else {
         		classification = "CLASS:PUBLIC\n";
         	}
         } else {
-        	choice = "Public";
         	classification = "CLASS:PUBLIC\n";
         }
-		return choice;
+		return classification;
 	}
 	
 	public String getGeo() throws Exception {
@@ -125,6 +129,7 @@ public class iCalender extends calEssentials implements calMethods {
 			return subGeo;
 		}
 		else {
+			//TODO add getLocation if answer is NO
 			location = null;
 			geo = null;	
 			return (geo + location);
@@ -169,12 +174,12 @@ public class iCalender extends calEssentials implements calMethods {
             bw.write(prodid);
             bw.write(eventBegin);
             bw.write(uid);
-            bw.write(startTime);
-            bw.write(endTime);
-            bw.write(summary);
-            bw.write(description);
-            bw.write(location);
-            bw.write(classification);
+           // bw.write(startTime);
+           // bw.write(endTime);
+            //bw.write(summary);
+           // bw.write(description);
+           // bw.write(location);
+           bw.write(classification);
             
             if (geo != null) {
             bw.write(geo);
@@ -195,25 +200,25 @@ public class iCalender extends calEssentials implements calMethods {
 	public void createFile() throws Exception {        
      
         //////////////////////USER INPUT: EVENT NAME///////////////////////
-        getSummary();
+        //getSummary();
         
         //////////////////////USER INPUT: DESCRIPTION///////////////////////
-        getDescription();
+       // getDescription();
         
         //////////////////////USER INPUT: LOCATION///////////////////////
         //getLocation();
         
         //////////////////////USER INPUT: DATE///////////////////////
-        getDate();
+        //getDate();
 
         //////////////////////USER INPUT: START/END TIME///////////////////////
-		getTime();
+		//getTime();
 
         //////////////////////USER INPUT: CLASSIFICATION///////////////////////
         getClassification();
         
         //////////////////////USER Input: GEO//////////////////////////////////
-        getGeo();
+        //getGeo();
         
 	}
 
