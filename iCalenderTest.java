@@ -68,7 +68,10 @@ public class iCalenderTest {
 	
 	@Test
 	public void testTime() throws IOException {
-		//TODO
+		assertEquals(1700, cal.getStartTime());
+		assertEquals(1715, cal.getEndTime());
+		assertEquals("1700-1715", cal.getTime());
+		assertEquals("300-1200", cal.getTime());
 	}
 	
 	@Test
@@ -113,7 +116,6 @@ public class iCalenderTest {
 		System.err.println("NOW SAY NO ALL THE TIME");
 		System.out.println("");
 		
-		assertEquals("null, null", cal.getGeo()); //University of Hawaii Manoa
-		assertEquals("null, null", cal.getGeo()); //Stanford University
+		assertEquals("null, null", cal.getGeo());
 	}
 }

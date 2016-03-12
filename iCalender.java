@@ -42,14 +42,6 @@ public class iCalender extends calEssentials implements calMethods {
         }
 	}
 	
-	public String getLocation() {
-        System.out.println("What is the location of the event?");
-    	System.out.print(">>>");
-    	String subLocation = reader.nextLine();
-        location = "LOCATION:" + subLocation + "\n";
-		return subLocation;
-	}
-	
 	public String getDate() throws IOException {
 		
         System.out.println("What is the date of the event? (YYYYMMDD)");
@@ -66,29 +58,48 @@ public class iCalender extends calEssentials implements calMethods {
 		return date;
 	}
 	
-	public String getTime() throws IOException {
-		String time1;
-		String time2;
+	public int getStartTime() {
         System.out.println("What time does the event start? (24hr)");
     	System.out.print(">>>");
-        time1 = reader.nextLine();
+        String time1 = reader.nextLine();
         if (time1.length() < 4) {
-        	throw new IOException("Must be 24hr!");
+        	System.out.println("Too little! Must be 4 digits and 24hr!");
+        	getStartTime();
+        }
+        if (time1.length() > 4) {
+        	System.out.println("Too much! Must be 4 digits and 24hr!");
+        	getStartTime();
         }
         int sTime = Integer.parseInt(time1);
         startTime = "DTSTART:" + date + "T" + sTime + "0"+ "\n";
-
+		return sTime;
+	}
+	
+	public int getEndTime() {
         System.out.println("What time does the event end? (24 hr)");
     	System.out.print(">>>");
-        time2 = reader.nextLine();
+        String time2 = reader.nextLine();
         if (time2.length() < 4) {
-        	throw new IOException("Must be 24 hr!");
+        	System.out.println("Too little! Must be 4 digits and 24hr!");
+        	getEndTime();
+        }
+        if (time2.length() > 4) {
+        	System.out.println("Too Much! Must be 4 digits and 24hr!");
+        	getEndTime();
         }
         int eTime = Integer.parseInt(time2);
-        if(eTime < sTime) {
-        	throw new IOException("End time cannot be earlier than start time!");
-        }
         endTime = "DTEND:" + date + "T" + eTime + "0" + "\n";
+		return eTime;
+	}
+	
+	
+	public String getTime() throws IOException {
+		int sTime = getStartTime();
+		int eTime = getEndTime();
+        if(eTime < sTime) {
+        	System.out.println("End time cannot be earlier than start time!");
+        	getTime();
+        }
         return (sTime + "-" + eTime);
 	}
 	
@@ -224,9 +235,6 @@ public class iCalender extends calEssentials implements calMethods {
         
         //////////////////////USER INPUT: DESCRIPTION///////////////////////
         getDescription();
-       
-        //////////////////////USER INPUT: LOCATION///////////////////////
-        //getLocation();
         
         //////////////////////USER INPUT: DATE///////////////////////
         getDate();
