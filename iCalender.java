@@ -3,6 +3,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 
@@ -10,8 +12,8 @@ public class iCalender extends calEssentials implements calMethods {
     Scanner reader = new Scanner(System.in);
     private String date;
 
-	public iCalender() {
-		//Create an empty constructor.
+	public iCalender() throws Exception {
+
 	}
 	
 	public String getSummary() {
@@ -163,6 +165,7 @@ public class iCalender extends calEssentials implements calMethods {
 			}
 		}
 	}
+
 	
 	public void nameFile() throws Exception {
 		//Create an instance of iCalender
@@ -176,7 +179,7 @@ public class iCalender extends calEssentials implements calMethods {
 		//Write a new .ics file with an event name
 		newCal.writeFile(eName);
 	}
-
+	
 	public void writeFile(String name) throws Exception{
 
 		//Take the input name and build a file from it with append .ics
