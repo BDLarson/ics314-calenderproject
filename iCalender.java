@@ -5,29 +5,39 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 
 public class iCalender extends calEssentials implements calMethods {
     Scanner reader = new Scanner(System.in);
     private String date;
-
-	public iCalender() throws Exception {
-
+    public int setTime;
+    public String setName;
+    
+	public iCalender() {
 	}
 	
 	public String getSummary() {
         System.out.println("Do you want to add an event name? (Y/N)");
     	System.out.print(">>>");
-    	if (reader.nextLine().equalsIgnoreCase("Y")) {
+    	reader.nextLine();
+    	if (reader.nextLine().trim().equalsIgnoreCase("Y")) {
     		System.out.println("What is the event?");
     		System.out.print(">>>");
-    		summary = "SUMMARY:" + reader.nextLine().trim() + "\n";
+    		String newName = reader.nextLine().trim();
+    		summary = "SUMMARY:" + newName + "\n";
+    		setName = newName;
     		return summary;
     	} else {
     		summary = "SUMMARY:none\n";
+    		setName = "Unknown event";
     		return summary;
     	}
+	}
+	
+	public String setSummary() {
+		return setName;
 	}
 	
 	public String getDescription() {
@@ -74,8 +84,15 @@ public class iCalender extends calEssentials implements calMethods {
         }
         int sTime = Integer.parseInt(time1);
         startTime = "DTSTART:" + date + "T" + sTime + "0"+ "\n";
+        setTime = sTime;
+        System.out.println();
 		return sTime;
 	}
+	
+	public int setStartTime() {
+		return setTime;
+	}
+	
 	
 	public int getEndTime() {
         System.out.println("What time does the event end? (24 hr)");
@@ -165,11 +182,18 @@ public class iCalender extends calEssentials implements calMethods {
 			}
 		}
 	}
+	
+	public String toString() {
+		String eventEssentials = (setSummary() + " starting at: " + setStartTime() + "\n");
+		return eventEssentials;
+	}
 
 	
 	public void nameFile() throws Exception {
 		//Create an instance of iCalender
-		iCalender newCal = new iCalender();
+		//iCalender newCal = new iCalender();
+		
+		
 		
 		//Make a name for the .ics file
 		System.out.println("What do you want your file to be called?");
@@ -177,7 +201,7 @@ public class iCalender extends calEssentials implements calMethods {
 		String eName = reader.next();
 		
 		//Write a new .ics file with an event name
-		newCal.writeFile(eName);
+		writeFile(eName);
 	}
 	
 	public void writeFile(String name) throws Exception{

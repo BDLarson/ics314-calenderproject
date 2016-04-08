@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class mainCal {
     Scanner reader = new Scanner(System.in);
 	ArrayList<iCalender> allEvents = new ArrayList<iCalender>();
+	iCalenderComparator eventComp = new iCalenderComparator();
 
 	public Boolean addEvent() throws Exception {
 		while(true) {
@@ -23,14 +24,17 @@ public class mainCal {
 		}
 	}
 	
+	public void sortEvents() {
+		Collections.sort(allEvents, eventComp);
+	}
+	
 	//Print the contents of entire event array
 	public void printAllEvents()
 	{
 		Iterator eventsItr = allEvents.iterator();
-		System.out.print("-----------------------------------\n");
+		System.out.print("<<<<<LIST OF EVENTS>>>>>\n");
 		while(eventsItr.hasNext()){
 			System.out.print(eventsItr.next().toString());
-			System.out.println("-----------------------------------");
 		}
 	}
 
@@ -41,6 +45,7 @@ public class mainCal {
 		
 		mainCal cal = new mainCal();
 		cal.addEvent(); //Start creating files
+		cal.sortEvents(); //Start sorting files
 		cal.printAllEvents();
 	}
 }
