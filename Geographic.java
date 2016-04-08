@@ -8,6 +8,8 @@ import java.net.URLEncoder;
 public class Geographic {
 	private String location;
 	private String output;
+	public static String lat;
+	public static String lon;
 	
 	public Geographic() {
 		
@@ -42,6 +44,8 @@ public class Geographic {
       		 String longitude = stdout.readLine();
       		 longitude = longitude.replace("<lng>", "");
       		 longitude = longitude.replace("</lng>", "");
+      		 lat = latitude;
+      		 lon = longitude;
       		 return latitude +";"+ longitude.trim();
       	 	}
       	  
@@ -50,6 +54,16 @@ public class Geographic {
 	    }
 	    return "ERROR";
 	  }
+	
+	public double getLatitude() {
+		double latitude = Double.parseDouble(lat);
+		return latitude;
+	}
+	
+	public double getLongitude() {
+		double longitude = Double.parseDouble(lon); 
+		return longitude;
+	}
 	
 	public void setPosition(String position){
 		output =position;

@@ -6,8 +6,8 @@ public class iCalenderComparator implements Comparator<iCalender> {
 
 	@Override
 	public int compare(iCalender o1, iCalender o2) {
-		int start1 = (o1.setStartTime());
-		int start2 = (o2.setStartTime());
+		int start1 = (o1.getStartTime());
+		int start2 = (o2.getStartTime());
 		if (start1 < start2) {
 			return -1;
 		}

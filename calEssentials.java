@@ -10,6 +10,7 @@ public abstract class calEssentials {
 	protected String summary;
 	protected String description;
 	protected String classification;
+	protected String comment;
 	protected String geo;
 	protected String calBegin = "BEGIN:VCALENDAR\n";
 	protected String calEnd = "END:VCALENDAR\n";

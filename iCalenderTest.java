@@ -12,21 +12,21 @@ public class iCalenderTest {
 	@Test
 	public void testSummary() throws IOException {
 	//////Each String to check, is what the output is in the .ics file/////////
-		assertEquals("SUMMARY:School\n", cal.getSummary());
-		assertEquals("SUMMARY:Homework\n", cal.getSummary());
+		assertEquals("SUMMARY:School\n", cal.setSummary());
+		assertEquals("SUMMARY:Homework\n", cal.setSummary());
 		
 		System.out.println("");
 		System.err.println("NOW ADD SPACES");
 		System.out.println("");
 		
-		assertEquals("SUMMARY:Work\n", cal.getSummary());
-		assertEquals("SUMMARY:Sleep\n", cal.getSummary());
+		assertEquals("SUMMARY:Work\n", cal.setSummary());
+		assertEquals("SUMMARY:Sleep\n", cal.setSummary());
 		
 		System.out.println("");
 		System.err.println("NOW SAY NO");
 		System.out.println("");
 		
-		assertEquals("SUMMARY:none\n", cal.getSummary());
+		assertEquals("SUMMARY:none\n", cal.setSummary());
 	}
 	
 	@Test
