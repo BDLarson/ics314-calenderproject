@@ -20,6 +20,7 @@ public class iCalender extends calEssentials implements calMethods {
     public String lon;
     
 	public iCalender() {
+		
 	}
 	
 	public String setSummary() {

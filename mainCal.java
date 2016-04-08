@@ -30,6 +30,7 @@ public class mainCal {
 		}
 	}
 	
+	//Sort the contents of the entire event array by start time
 	public void sortEvents() {
 		if (allEvents.size() > 1) {
 			Collections.sort(allEvents, eventComp);
@@ -40,6 +41,7 @@ public class mainCal {
 	public void printAllEvents()
 	{
 		Iterator eventsItr = allEvents.iterator();
+		System.out.println();
 		System.out.print("<<<<<LIST OF EVENTS>>>>>\n");
 		while(eventsItr.hasNext()){
 			System.out.print(eventsItr.next().toString());
@@ -49,21 +51,13 @@ public class mainCal {
 	public String getGreatCircleDistance() {
 		if (allEvents.size() > 1) {
 			for (int i = 0; i < allEvents.size()-1; i++) {
-				/*System.out.println(allEvents.get(i).getLat());
-				System.out.println(allEvents.get(i).getLong());
-				System.out.println(allEvents.get(i).getSummary());
-
-				System.out.println(allEvents.get(i+1).getLat());
-				System.out.println(allEvents.get(i+1).getLong());
-				System.out.println(allEvents.get(i+1).getSummary());
-				 */
-
-				GreatCircle newGC = new GreatCircle(allEvents.get(i).getLat(), allEvents.get(i).getLong(), allEvents.get(i+1).getLat(), allEvents.get(i+1).getLong());
-				//System.out.println(newGC.getDistance());
+				GreatCircle newGC = new GreatCircle(allEvents.get(i).getLat(), allEvents.get(i).getLong(),
+						allEvents.get(i+1).getLat(), allEvents.get(i+1).getLong());
 				allEvents.get(i).setComment(newGC.getDistance());
 				System.out.print(allEvents.get(i).getComment());
 				System.out.print(allEvents.get(i+1).getComment() + "\n");
 			}
+			
 		} else {
 			System.out.println("No Great Circle Distance to Calculate.");
 		}
@@ -71,13 +65,23 @@ public class mainCal {
 	}
 
 	public static void main(String[] args) throws Exception {
-		//iCalender cal = new iCalender();
-		//cal.nameFile();
-		
+	    Scanner reader = new Scanner(System.in);
 		mainCal cal = new mainCal();
-		cal.addEvent(); //Start creating files
-		cal.sortEvents(); //Start sorting files
-		cal.printAllEvents();
-		cal.getGreatCircleDistance();
+		System.out.println("What do you want to do? (Please enter a number)" );
+		System.out.println("1. Create new .ics file?");
+		System.out.println("2. Import new .ics file?");
+		System.out.print(">>>");
+	    String next = reader.nextLine();
+
+		if (next.equalsIgnoreCase("1")) {
+			cal.addEvent(); //Start creating files
+			cal.sortEvents(); //Start sorting files
+			cal.printAllEvents(); //Print out all events in order by start time
+			cal.getGreatCircleDistance();
+		} 
+		if (next.equalsIgnoreCase("2")) {
+			System.out.println("Nothing programmed yet.");
+		} 
+		System.out.println("Thanks! Exiting program!");
 	}
 }
