@@ -37,20 +37,13 @@ public class GreatCircle {
 	}
 	
 	//insert in degrees convert to radians for calculation
-	public GreatCircle(double lat1,double lon1, double lat2, double lon2){
-		this.lat1 = Math.toRadians(lat1);
-		this.lon1 = Math.toRadians(lon1);
-		this.lat2 = Math.toRadians(lat2);
-		this.lon2 = Math.toRadians(lon2);
+	public GreatCircle(String lat1,String lon1, String lat2, String lon2){
+		this.lat1 = Math.toRadians(Double.parseDouble(lat1));
+		this.lon1 = Math.toRadians(Double.parseDouble(lon1));
+		this.lat2 = Math.toRadians(Double.parseDouble(lat2));
+		this.lon2 = Math.toRadians(Double.parseDouble(lon2));
 	}
-	
-	/*public void setLocations(double lat1,double lon1, double lat2, double lon2){
-		this.lat1 = lat1;
-		this.lon1 = lon1;
-		this.lat2 = lat2;
-		this.lon2 = lon2;
-	}*/
-	
+
 	public void calcDistance(){
 		centangle = Math.acos(Math.sin(lat1) * Math.sin(lat2)
                  + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon1 - lon2));

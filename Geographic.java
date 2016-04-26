@@ -44,8 +44,8 @@ public class Geographic {
       		 String longitude = stdout.readLine();
       		 longitude = longitude.replace("<lng>", "");
       		 longitude = longitude.replace("</lng>", "");
-      		 lat = latitude;
-      		 lon = longitude;
+      		 lat = latitude.trim();
+      		 lon = longitude.trim();
       		 return latitude +";"+ longitude.trim();
       	 	}
       	  
