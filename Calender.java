@@ -1,8 +1,12 @@
 package ics314;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 import ics314.Event;
 
@@ -48,7 +52,7 @@ public class Calender {
 		    	if (sc.nextLine().trim().equalsIgnoreCase("Y")) {
 		    		System.out.println("What is the event?");
 		    		System.out.print(">>>");
-		    		newEvent.setEventName(sc.next());
+		    		newEvent.setEventName(sc.nextLine());
 		    	} else {
 		    		newEvent.setEventName("N/A");
 		    	}
@@ -58,7 +62,6 @@ public class Calender {
 		    	////////////////////////////////////
 				System.out.println("Do you want to add a description? (Y/N)");
 		    	System.out.print(">>>");
-		    	sc.nextLine();
 		    	if (sc.nextLine().trim().equalsIgnoreCase("Y")) {
 		        	System.out.println("What is the description of the event?");
 		        	System.out.print(">>>");
@@ -253,4 +256,73 @@ public class Calender {
 		}
 		return null;
 	}	
+	
+	public void addPreCreated() throws FileNotFoundException {
+		boolean done = false;
+		while(!done) {
+			System.out.println("Do you want to add a precreated event? (Y/N)");
+			System.out.print(">>>");
+			if (sc.nextLine().equalsIgnoreCase("Y")) {
+				System.out.println("What is the name of the file?");
+				System.out.print(">>>");
+				List<String> newFile = new ArrayList<String>();
+				Scanner readFile = new Scanner(new File(sc.nextLine() + ".ics"));
+				while (readFile.hasNext()) {
+					newFile.add(readFile.nextLine());
+				}
+				Event newEvent = new Event();
+				for (int i = 0; i<newFile.size(); i++) {
+					if (newFile.get(i).startsWith("DTSTART:")) {
+						String newDate = (String) newFile.get(i).subSequence(8, 16);
+						String newStartTime = (String) newFile.get(i).subSequence(17,21);
+						int newStartTime2 = Integer.parseInt(newStartTime);
+						newEvent.setDate(newDate);
+						newEvent.setStartTime(newStartTime2);
+						System.out.println(newEvent.getDate());
+						System.out.println(newEvent.getStartTime());
+					}
+					if (newFile.get(i).startsWith("DTEND:")) {
+						String newEndTime = (String) newFile.get(i).subSequence(15, 19);
+						int newEndTime2 = Integer.parseInt(newEndTime);
+						newEvent.setEndTime(newEndTime2);
+						System.out.println(newEvent.getEndTime());
+					}
+					if (newFile.get(i).startsWith("SUMMARY:")) {
+						String newName = (String) newFile.get(i).subSequence(8, newFile.get(i).length());
+						newEvent.setEventName(newName);
+						System.out.println(newEvent.getEventName());
+					}
+					if (newFile.get(i).startsWith("DESCRIPTION:")) {
+						String newDescription = (String) newFile.get(i).subSequence(12, newFile.get(i).length());
+						newEvent.setDescription(newDescription);
+						System.out.println(newEvent.getDescription());
+					}
+					if (newFile.get(i).startsWith("CLASS")) {
+						String newClass = (String) newFile.get(i).subSequence(6, newFile.get(i).length());
+						newEvent.setClassification(newClass);
+						System.out.println(newEvent.getClassification());
+					}
+					if (newFile.get(i).startsWith("LOCATION")) {
+						String newLocation = (String) newFile.get(i).subSequence(9, newFile.get(i).length());
+						newEvent.setLocation(newLocation);
+						System.out.println(newEvent.getLocation());
+					}
+					if (newFile.get(i).startsWith("GEO")) {
+						String newSplitter = (String) newFile.get(i).subSequence(4, newFile.get(i).length());
+						String[] delimiter = newSplitter.split(";");
+						String newLatitude = delimiter[0];
+						String newLongitude = delimiter[1];
+						newEvent.setLat(newLatitude);
+						newEvent.setLong(newLongitude);
+						System.out.println(newEvent.getLat());
+						System.out.println(newEvent.getLong());
+					}
+					//System.out.println(newFile.get(i));
+				}
+				allEvents.add(newEvent);
+			} else {
+				done = true;
+			}
+		}
+	}
 }

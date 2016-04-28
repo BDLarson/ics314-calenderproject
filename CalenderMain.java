@@ -20,8 +20,10 @@ public class CalenderMain {
 			cal.getGreatCircleDistance();
 		} 
 		if (next.equalsIgnoreCase("2")) {
-			//cal.addPreCreated();
-			System.out.println("Nothing programmed yet.");
+			cal.addPreCreated(); //Start importing files
+			cal.sortEvents(); //Start sorting files
+			cal.printAllEvents(); //Print out all events in order by start time
+			//System.out.println("Nothing programmed yet.");
 		} 
 		System.out.println("Thanks! Exiting program!");	}
 }
