@@ -278,34 +278,34 @@ public class Calender {
 						int newStartTime2 = Integer.parseInt(newStartTime);
 						newEvent.setDate(newDate);
 						newEvent.setStartTime(newStartTime2);
-						System.out.println(newEvent.getDate());
-						System.out.println(newEvent.getStartTime());
+						//System.out.println(newEvent.getDate());
+						//System.out.println(newEvent.getStartTime());
 					}
 					if (newFile.get(i).startsWith("DTEND:")) {
 						String newEndTime = (String) newFile.get(i).subSequence(15, 19);
 						int newEndTime2 = Integer.parseInt(newEndTime);
 						newEvent.setEndTime(newEndTime2);
-						System.out.println(newEvent.getEndTime());
+						//System.out.println(newEvent.getEndTime());
 					}
 					if (newFile.get(i).startsWith("SUMMARY:")) {
 						String newName = (String) newFile.get(i).subSequence(8, newFile.get(i).length());
 						newEvent.setEventName(newName);
-						System.out.println(newEvent.getEventName());
+						//System.out.println(newEvent.getEventName());
 					}
 					if (newFile.get(i).startsWith("DESCRIPTION:")) {
 						String newDescription = (String) newFile.get(i).subSequence(12, newFile.get(i).length());
 						newEvent.setDescription(newDescription);
-						System.out.println(newEvent.getDescription());
+						//System.out.println(newEvent.getDescription());
 					}
 					if (newFile.get(i).startsWith("CLASS")) {
 						String newClass = (String) newFile.get(i).subSequence(6, newFile.get(i).length());
 						newEvent.setClassification(newClass);
-						System.out.println(newEvent.getClassification());
+						//System.out.println(newEvent.getClassification());
 					}
 					if (newFile.get(i).startsWith("LOCATION")) {
 						String newLocation = (String) newFile.get(i).subSequence(9, newFile.get(i).length());
 						newEvent.setLocation(newLocation);
-						System.out.println(newEvent.getLocation());
+						//System.out.println(newEvent.getLocation());
 					}
 					if (newFile.get(i).startsWith("GEO")) {
 						String newSplitter = (String) newFile.get(i).subSequence(4, newFile.get(i).length());
@@ -314,8 +314,8 @@ public class Calender {
 						String newLongitude = delimiter[1];
 						newEvent.setLat(newLatitude);
 						newEvent.setLong(newLongitude);
-						System.out.println(newEvent.getLat());
-						System.out.println(newEvent.getLong());
+						//System.out.println(newEvent.getLat());
+						//System.out.println(newEvent.getLong());
 					}
 					//System.out.println(newFile.get(i));
 				}
